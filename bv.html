@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Daily Bible Verse</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-container">
+    <h1 class="fade-in">📖 Daily Bible Verse</h1>
+
+    <div class="verse-container" id="verseBox">
+      <p class="verse-text" id="verseText">Loading verse...</p>
+      <p class="verse-reference" id="verseRef"></p>
+    </div>
+
+    <div class="buttons">
+      <button id="newVerseBtn">✨ New Verse</button>
+      <button id="searchToggleBtn">🔍 Search</button>
+    </div>
+
+    <div class="search-bar" id="searchBar">
+      <input type="text" id="searchInput" placeholder="Enter keyword or verse (e.g. John 3:16)" />
+      <button id="searchBtn">Search</button>
+    </div>
+
+    <footer>
+      © 2025 BibleVerseApp | Powered by 
+      <a href="https://bible-api.com" target="_blank">Bible API</a>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
