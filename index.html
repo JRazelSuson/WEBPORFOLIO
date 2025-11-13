@@ -91,14 +91,28 @@
 
 <section id="projects" class="projects">
   <h2 class="section-title">My Projects</h2>
-  <div class="projects-grid">
 
-    <div class="project-item">
-     <a href="#"><img src="project1.jpg" alt="Project 1"></a>
+  <div class="gallery">
+    <ul class="cards">
+      <li class="project-item">
+        <a href="#"><img src="project1.jpg" alt="Project 1" /></a>
+      </li>
+      <li class="project-item">
+        <a href="https://jrazelsuson.github.io/4U/envelope.html"><img src="project2.jpg" alt="Project 2" /></a>
+      </li>
+      <li class="project-item">
+        <a href="#"><img src="project3.jpg" alt="Project 3" /></a>
+      </li>
+      <!-- Add more project cards as needed -->
+    </ul>
 
-      <div class="project-item">
-        <a href="https://jrazelsuson.github.io/4U/envelope.html"><img src="project2.jpg" alt="Project 2"></a>
-</section> 
+    <div class="nav-buttons">
+      <button class="nav prev">PREV</button>
+      <button class="nav next">NEXT</button>
+    </div>
+  </div>
+</section>
+
 
 
 <section id="contacts" class="contact">
@@ -138,4 +152,35 @@
 </div>
 </section>
 </body>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.project-item');
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
+    let currentIndex = 0;
+
+    if (!cards.length || !prevBtn || !nextBtn) {
+      console.error("Carousel elements not found. Check your HTML class names.");
+      return;
+    }
+
+    function updateActiveCard() {
+      cards.forEach((card, index) => {
+        card.classList.toggle('active', index === currentIndex);
+      });
+    }
+
+    prevBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + cards.length) % cards.length;
+      updateActiveCard();
+    });
+
+    nextBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % cards.length;
+      updateActiveCard();
+    });
+
+    updateActiveCard(); // Initialize first active card
+  });
+</script>
 </html>
