@@ -850,4 +850,89 @@ nav a.active {
   }
 }
 
+.admin-page {
+  padding: 120px 20px 60px;
+  max-width: 900px;
+  margin: 0 auto;
+  color: #fff;
+}
 
+.admin-page h1 {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.admin-note {
+  font-size: 1.4rem;
+  margin-bottom: 30px;
+  color: #d1d1d1;
+}
+
+.admin-section {
+  background: rgba(20, 20, 28, 0.88);
+  border-radius: 16px;
+  padding: 25px 20px 30px;
+  margin-bottom: 25px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.7);
+  border: 1px solid rgba(230,57,70,0.25);
+}
+
+.admin-section h2 {
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+.admin-subnote {
+  font-size: 1.3rem;
+  margin-bottom: 16px;
+  color: #c0c0c0;
+}
+
+.admin-field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
+.admin-field label {
+  font-size: 1.3rem;
+  margin-bottom: 5px;
+  color: #f0f0f0;
+}
+
+.admin-field input,
+.admin-field textarea {
+  padding: 10px 12px;
+  font-size: 1.4rem;
+  background: rgba(255,255,255,0.05);
+  border-radius: 8px;
+  border: 1px solid rgba(230,57,70,0.3);
+  color: #fff;
+  resize: vertical;
+}
+
+.admin-field input:focus,
+.admin-field textarea:focus {
+  outline: none;
+  border-color: #e63946;
+  box-shadow: 0 0 10px rgba(230,57,70,0.4);
+}
+
+.admin-btn {
+  width: 100%;
+  margin-top: 8px;
+  text-align: center;
+}
+
+.admin-status {
+  margin-top: 10px;
+  font-size: 1.3rem;
+  min-height: 18px;
+  color: #9be7ff;
+}
+
+.admin-skill-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 12px 20px;
+}

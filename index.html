@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-   
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
 
     
@@ -18,243 +17,239 @@
 
   <canvas id="galaxy" aria-hidden="true"></canvas>
 
-   
-    <header>
-        <a href="#" class="logo" data-anim="logo">James Razel</a>
-        <nav>
-            <a href="#home" data-anim="nav-link">Home</a>
-            <a href="#skills" data-anim="nav-link">Skills</a>
-            <a href="#verse" data-anim="nav-link">Bible Verse</a>
-            <a href="#projects" data-anim="nav-link">Projects</a>
-            <a href="#contacts" data-anim="nav-link">Contacts</a>
-            
-        </nav>
-    </header>
+  <header>
+    <a href="#" class="logo" data-anim="logo">James Razel</a>
+    <nav>
+      <a href="#home" data-anim="nav-link">Home</a>
+      <a href="#skills" data-anim="nav-link">Skills</a>
+      <a href="#verse" data-anim="nav-link">Bible Verse</a>
+      <a href="#projects" data-anim="nav-link">Projects</a>
+      <a href="#contacts" data-anim="nav-link">Contacts</a>
 
-    
-    <section id="home" class="home">
-        
-        <div class="home-imgt" data-anim="avatar">
-            <img src="homepageimage.jpg" alt="Profile Picture">
-        </div>
+    </nav>
+  </header>
 
-        <div class="home-content" data-anim="home-content">
-            <h1>Hi, It's <span>James Razel</span></h1>
-            <h3>I'm a <span>BS in Information Technology</span></h3>
-            <p>
-               Hi there! I’m passionate about web design and technology whether it’s coding simple websites, building PCs, 
-               or experimenting with new tools. Outside of tech, I enjoy photography, music, gaming, and keeping active at the gym. 
-               All of these inspire my creativity in different ways.
-            </p>
+  <section id="home" class="home">
+    <div class="home-imgt" data-anim="avatar">
+      <img src="homepageimage.jpg" alt="Profile Picture">
+    </div>
 
-            
-          <div class="social-icons">
+    <div class="home-content" data-anim="home-content">
+      <h1 id="introNameHeading">Hi, It's <span id="introName">James Razel</span></h1>
+      <h3 id="introSubtitle">I'm a <span id="introDegree">BS in Information Technology</span></h3>
+      <p id="introText">
+        Hi there! I’m passionate about web design and technology whether it’s coding simple websites, building PCs, 
+        or experimenting with new tools. Outside of tech, I enjoy photography, music, gaming, and keeping active at the gym. 
+        All of these inspire my creativity in different ways.
+      </p>
+
+      <div class="social-icons">
         <a href="https://www.linkedin.com/in/james-razel-suson-935606335/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
         <a href="https://github.com/JRazelSuson" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
         <a href="https://www.facebook.com/M0kusei" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
         <a href="https://www.instagram.com/m0ku_sei/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-        </div>
+      </div>
 
-            
-             <br>
-            <a href="#contact" class="btn">Download CV</a>
-        </div>
-    </section>
-
+      <br>
+      
+      <a href="#contacts" class="btn">Download CV</a>
+    </div>
   </section>
 
   <section id="skills" class="skills">
-  <h2 class="section-title">My Skills</h2>
-  
-  <div class="skills-container" data-anim="skills-container">
-    <div class="skills-tabs">
-      <button class="skill-tab active" data-skill="all">All Skills</button>
-      <button class="skill-tab" data-skill="frontend">Frontend</button>
-      <button class="skill-tab" data-skill="tools">Tools</button>
-      <button class="skill-tab" data-skill="other">Other</button>
+    <h2 class="section-title">My Skills</h2>
+    <div class="skills-container" data-anim="skills-container">
+      <div class="skills-tabs">
+        <button class="skill-tab active" data-skill="all">All Skills</button>
+        <button class="skill-tab" data-skill="frontend">Frontend</button>
+        <button class="skill-tab" data-skill="tools">Tools</button>
+        <button class="skill-tab" data-skill="other">Other</button>
+      </div>
+
+      <div class="skills-grid">
+        
+        <div class="skill-item" data-category="all" data-anim="skill">
+          <i class="fas fa-microchip skill-icon"></i>
+          <h3>Computer Hardware Assembly</h3>
+        </div>
+
+        <div class="skill-item" data-category="frontend" data-anim="skill">
+          <i class="fas fa-code skill-icon"></i>
+          <h3>Web Design</h3>
+        </div>
+
+        <div class="skill-item" data-category="other" data-anim="skill">
+          <i class="fas fa-presentation skill-icon"></i>
+          <h3>Presentation</h3>
+        </div>
+
+        <div class="skill-item" data-category="frontend" data-anim="skill">
+          <i class="fab fa-css3-alt skill-icon"></i>
+          <h3>CSS</h3>
+        </div>
+
+        <div class="skill-item" data-category="frontend" data-anim="skill">
+          <i class="fab fa-html5 skill-icon"></i>
+          <h3>HTML</h3>
+        </div>
+
+        <div class="skill-item" data-category="frontend" data-anim="skill">
+          <i class="fab fa-js-square skill-icon"></i>
+          <h3>JAVASCRIPT</h3>
+        </div>
+
+        <div class="skill-item" data-category="tools" data-anim="skill">
+          <i class="fab fa-figma skill-icon"></i>
+          <h3>Figma</h3>
+        </div>
+
+        <div class="skill-item" data-category="tools" data-anim="skill">
+          <i class="fas fa-code skill-icon"></i>
+          <h3>Visual Studio Code</h3>
+        </div>
+
+        <div class="skill-item" data-category="tools" data-anim="skill">
+          <i class="fab fa-github skill-icon"></i>
+          <h3>Github</h3>
+        </div>
+
+        <div class="skill-item" data-category="other" data-anim="skill">
+          <i class="fas fa-video skill-icon"></i>
+          <h3>Video Editing</h3>
+        </div>
+
+        <div class="skill-item" data-category="tools" data-anim="skill">
+          <i class="fab fa-android skill-icon"></i>
+          <h3>Android Studio</h3>
+        </div>
+
+        <div class="skill-item" data-category="tools" data-anim="skill">
+          <i class="fas fa-cube skill-icon"></i>
+          <h3>Blender</h3>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="projects">
+    <h2 class="section-title">My Projects</h2>
+
+    <div class="projects-controls">
+      <button class="project-view-btn active" data-view="carousel">Carousel</button>
+      <button class="project-view-btn" data-view="all">All</button>
     </div>
 
-    <div class="skills-grid">
-      <!-- All Skills -->
-      <div class="skill-item" data-category="all" data-anim="skill">
-        <i class="fas fa-microchip skill-icon"></i>
-        <h3>Computer Hardware Assembly</h3>
+
+    <div class="gallery" data-anim="gallery" id="carousel-view">
+      <div class="gallery-inner">
+        <ul class="cards">
+          <li class="project-item">
+            <a href="#"><img src="project1.jpg" alt="My Web Portfolio" /></a>
+          </li>
+          <li class="project-item">
+            <a href="https://jrazelsuson.github.io/4U/envelope.html"><img src="project2.jpg" alt="Welcome Letter" /></a>
+          </li>
+          <li class="project-item">
+            <a href="https://jrazelsuson.github.io/Daily-Bible-Verse-Generator/"><img src="project3.jpg" alt="Daily Bible Verse Generator" /></a>
+          </li>
+        </ul>
       </div>
 
-      <div class="skill-item" data-category="frontend" data-anim="skill">
-        <i class="fas fa-code skill-icon"></i>
-        <h3>Web Design</h3>
-      </div>
-
-      <div class="skill-item" data-category="other" data-anim="skill">
-        <i class="fas fa-presentation skill-icon"></i>
-        <h3>Presentation</h3>
-      </div>
-
-      <div class="skill-item" data-category="frontend" data-anim="skill">
-        <i class="fab fa-css3-alt skill-icon"></i>
-        <h3>CSS</h3>
-      </div>
-
-      <div class="skill-item" data-category="frontend" data-anim="skill">
-        <i class="fab fa-html5 skill-icon"></i>
-        <h3>HTML</h3>
-      </div>
-
-      <div class="skill-item" data-category="frontend" data-anim="skill">
-        <i class="fab fa-js-square skill-icon"></i>
-        <h3>JAVASCRIPT</h3>
-      </div>
-
-      <div class="skill-item" data-category="tools" data-anim="skill">
-        <i class="fab fa-figma skill-icon"></i>
-        <h3>Figma</h3>
-      </div>
-
-      <div class="skill-item" data-category="tools" data-anim="skill">
-        <i class="fas fa-code skill-icon"></i>
-        <h3>Visual Studio Code</h3>
-      </div>
-
-      <div class="skill-item" data-category="tools" data-anim="skill">
-        <i class="fab fa-github skill-icon"></i>
-        <h3>Github</h3>
-      </div>
-
-      <div class="skill-item" data-category="other" data-anim="skill">
-        <i class="fas fa-video skill-icon"></i>
-        <h3>Video Editing</h3>
-      </div>
-
-      <div class="skill-item" data-category="tools" data-anim="skill">
-        <i class="fab fa-android skill-icon"></i>
-        <h3>Android Studio</h3>
-      </div>
-
-      <div class="skill-item" data-category="tools" data-anim="skill">
-        <i class="fas fa-cube skill-icon"></i>
-        <h3>Blender</h3>
+      <div class="nav-buttons">
+        <button class="nav prev">PREV</button>
+        <button class="nav next">NEXT</button>
       </div>
     </div>
-</section>
 
-<section id="projects" class="projects">
-  <h2 class="section-title">My Projects</h2>
-
-  <div class="projects-controls">
-    <button class="project-view-btn active" data-view="carousel">Carousel</button>
-    <button class="project-view-btn" data-view="all">All</button>
-  </div>
-
-  <!-- Carousel view -->
-  <div class="gallery" data-anim="gallery" id="carousel-view">
-    <div class="gallery-inner">
-      <ul class="cards">
-        <li class="project-item">
-          <a href="#"><img src="project1.jpg" alt="My Web Portfolio" /></a>
-        </li>
-        <li class="project-item">
-          <a href="https://jrazelsuson.github.io/4U/envelope.html"><img src="project2.jpg" alt="Welcome Letter" /></a>
-        </li>
-        <li class="project-item">
-          <a href="https://jrazelsuson.github.io/Daily-Bible-Verse-Generator/"><img src="project3.jpg" alt="Daily Bible Verse Generator" /></a>
-        </li>
-        <!-- Add more project cards as needed -->
-      </ul>
-    </div>
-
-    <div class="nav-buttons">
-      <button class="nav prev">PREV</button>
-      <button class="nav next">NEXT</button>
-    </div>
-  </div>
-
-  <!-- All projects grid view -->
-  <div class="projects-grid hidden" id="all-view">
-    <div class="project-card">
-      <a href="#"><img src="project1.jpg" alt="My Web Portfolio" /></a>
-      <p>My Web Portfolio</p>
-    </div>
-    <div class="project-card">
-      <a href="https://jrazelsuson.github.io/4U/envelope.html"><img src="project2.jpg" alt="Welcome Letter" /></a>
-      <p>Welcome Letter</p>
-    </div>
-    <div class="project-card">
-      <a href="https://jrazelsuson.github.io/Daily-Bible-Verse-Generator/"><img src="project3.jpg" alt="Daily Bible Verse Generator" /></a>
-      <p>Daily Bible Verse Generator</p>
-    </div>
-  </div>
-</section>
-
-<section id="verse" class="verse-section">
-  <h2 class="section-title">Daily Bible Verse</h2>
-  
-  <div class="verse-container">
-    <div id="verseBox" class="verse-box" data-anim="verse">
-      <p id="verseText" class="verse-text">"Loading verse..."</p>
-      <p id="verseRef" class="verse-reference">— Bible</p>
-    </div>
-
-    <div class="verse-controls">
-      <button id="newVerseBtn" class="verse-btn new-verse-btn">
-        <i class="fas fa-sync-alt"></i> New Verse
-      </button>
-      <button id="searchToggleBtn" class="verse-btn search-toggle-btn">
-        <i class="fas fa-search"></i> Search
-      </button>
-    </div>
-
-    <div id="searchBar" class="search-bar">
-      <input type="text" id="searchInput" placeholder="Enter verse (e.g., John 3:16) or keyword...">
-      <button id="searchBtn" class="verse-btn search-btn">
-        <i class="fas fa-arrow-right"></i>
-      </button>
-    </div>
-  </div>
-</section>
-
-<section id="contacts" class="contact">
-  <h2 class="section-title">Contact Me</h2>
-   <div class="contacts-grid">
-
-    <div class="contact-item" data-anim="contact">
-      <i class="fas fa-envelope contact-icon"></i>
-      <h3>Email</h3>
-      <p><a href="mailto:susonjamesrazel@gmail.com" target="_blank">susonjamesrazel@gmail.com</a></p>
-    </div>
     
-    <div class="contact-item" data-anim="contact">
-      <i class="fas fa-phone contact-icon"></i>
-      <h3>Phone</h3>
-      <p><a href="tel:+639762105211">+63 976 210 5211</a></p>
+    <div class="projects-grid hidden" id="all-view">
+      <div class="project-card">
+        <a href="#"><img src="project1.jpg" alt="My Web Portfolio" /></a>
+        <p>My Web Portfolio</p>
+      </div>
+      <div class="project-card">
+        <a href="https://jrazelsuson.github.io/4U/envelope.html"><img src="project2.jpg" alt="Welcome Letter" /></a>
+        <p>Welcome Letter</p>
+      </div>
+      <div class="project-card">
+        <a href="https://jrazelsuson.github.io/Daily-Bible-Verse-Generator/"><img src="project3.jpg" alt="Daily Bible Verse Generator" /></a>
+        <p>Daily Bible Verse Generator</p>
+      </div>
     </div>
-    
-    <div class="contact-item" data-anim="contact">
-      <i class="fab fa-facebook contact-icon"></i>
-      <h3>Facebook</h3>
-      <p><a href="https://www.facebook.com/M0kusei" target="_blank">JRazel Suson</a></p>
-    </div>
+  </section>
 
-    <div class="contact-item" data-anim="contact">
-      <i class="fab fa-instagram contact-icon"></i>
-      <h3>Instagram</h3>
-      <p><a href="https://www.instagram.com/m0ku_sei/" target="_blank">@m0ku_sei</a></p>
-    </div>
+  <section id="verse" class="verse-section">
+    <h2 class="section-title">Daily Bible Verse</h2>
+    <div class="verse-container">
+      <div id="verseBox" class="verse-box" data-anim="verse">
+        <p id="verseText" class="verse-text">"Loading verse..."</p>
+        <p id="verseRef" class="verse-reference">— Bible</p>
+      </div>
 
-    <div class="contact-item" data-anim="contact">
-      <i class="fab fa-linkedin contact-icon"></i>
-      <h3>LinkedIn</h3>
-      <p><a href="https://www.linkedin.com/in/james-razel-suson-935606335/" target="_blank">James Razel Suson</a></p>
-    </div>
+      <div class="verse-controls">
+        <button id="newVerseBtn" class="verse-btn new-verse-btn">
+          <i class="fas fa-sync-alt"></i> New Verse
+        </button>
+        <button id="searchToggleBtn" class="verse-btn search-toggle-btn">
+          <i class="fas fa-search"></i> Search
+        </button>
+      </div>
 
-    <div class="contact-item" data-anim="contact">
-      <i class="fab fa-github contact-icon"></i>
-      <h3>GitHub</h3>
-      <p><a href="https://github.com/JRazelSuson" target="_blank">jrazelsuson</a></p>
+      <div id="searchBar" class="search-bar">
+        <input type="text" id="searchInput" placeholder="Enter verse (e.g., John 3:16) or keyword...">
+        <button id="searchBtn" class="verse-btn search-btn">
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
     </div>
+  </section>
 
-</div>
-</section>
+  <section id="contacts" class="contact">
+    <h2 class="section-title">Contact Me</h2>
+
+    <div class="contacts-grid">
+      <div class="contact-item" data-anim="contact">
+        <i class="fas fa-envelope contact-icon"></i>
+        <h3>Email</h3>
+        <p><a id="contactEmail" href="mailto:susonjamesrazel@gmail.com" target="_blank">susonjamesrazel@gmail.com</a></p>
+      </div>
+
+      <div class="contact-item" data-anim="contact">
+        <i class="fas fa-phone contact-icon"></i>
+        <h3>Phone</h3>
+        <p><a id="contactPhone" href="tel:+639762105211">+63 976 210 5211</a></p>
+      </div>
+
+      <div class="contact-item" data-anim="contact">
+        <i class="fab fa-facebook contact-icon"></i>
+        <h3>Facebook</h3>
+        <p><a id="contactFacebook" href="https://www.facebook.com/M0kusei" target="_blank">JRazel Suson</a></p>
+      </div>
+
+      <div class="contact-item" data-anim="contact">
+        <i class="fab fa-instagram contact-icon"></i>
+        <h3>Instagram</h3>
+        <p><a id="contactInstagram" href="https://www.instagram.com/m0ku_sei/" target="_blank">@m0ku_sei</a></p>
+      </div>
+
+      <div class="contact-item" data-anim="contact">
+        <i class="fab fa-linkedin contact-icon"></i>
+        <h3>LinkedIn</h3>
+        <p><a id="contactLinkedIn" href="https://www.linkedin.com/in/james-razel-suson-935606335/" target="_blank">James Razel Suson</a></p>
+      </div>
+
+      <div class="contact-item" data-anim="contact">
+        <i class="fab fa-github contact-icon"></i>
+        <h3>GitHub</h3>
+        <p><a id="contactGithub" href="https://github.com/JRazelSuson" target="_blank">jrazelsuson</a></p>
+      </div>
+    </div>
+  </section>
+
+
+  <script src="content.js"></script>
+
+
   <script src="script.js"></script>
   <script src="bv.js"></script>
   <script src="animations.js"></script>
