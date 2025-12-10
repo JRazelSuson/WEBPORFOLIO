@@ -2,133 +2,97 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Admin | Portfolio</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+  <title>Admin Panel</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <canvas id="galaxy" aria-hidden="true"></canvas>
 
-  <header>
-    <a href="index.html" class="logo" data-anim="logo">← Back to Portfolio</a>
-    <nav>
-      <!-- Empty or you can add admin links later -->
-    </nav>
-  </header>
+<canvas id="galaxy"></canvas>
 
-  <main class="admin-page">
-    <h1>Admin Panel</h1>
-    <p class="admin-note">
-      Changes are saved in this browser using <code>localStorage</code>.  
-      After saving, go back to <strong>index.html</strong> and refresh to see updates.
-    </p>
+<header>
+  <a href="index.html#home" class="logo">← Back to Portfolio</a>
+  <nav></nav>
+</header>
 
-    <!-- Intro Section -->
-    <section class="admin-section">
-      <h2>Intro / Home Section</h2>
-      <form id="introForm">
-        <div class="admin-field">
-          <label for="introNameInput">Name</label>
-          <input type="text" id="introNameInput" placeholder="Your name">
-        </div>
+<section style="padding: 120px 6%;">
 
-        <div class="admin-field">
-          <label for="introDegreeInput">Degree / Role</label>
-          <input type="text" id="introDegreeInput" placeholder="e.g. BS in Information Technology">
-        </div>
+  <h2 class="section-title">Admin Panel</h2>
 
-        <div class="admin-field">
-          <label for="introTextInput">Introduction Text</label>
-          <textarea id="introTextInput" rows="5"
-            placeholder="Write your intro paragraph here..."></textarea>
-        </div>
+  <!-- INTRO -->
+  <form id="introForm">
+    <h3>Intro</h3>
 
-        <button type="submit" class="btn admin-btn">Save Intro</button>
-        <p id="introStatus" class="admin-status"></p>
-      </form>
-    </section>
+    <label>Name</label><br>
+    <input id="introNameInput" class="admin-input">
 
-    <!-- Skills Section -->
-    <section class="admin-section">
-      <h2>Skills</h2>
-      <p class="admin-subnote">
-        These map to your existing skill cards in order.  
-        Icons & categories stay the same, you’re just editing the titles.
-      </p>
+    <label>Degree / Role</label><br>
+    <input id="introDegreeInput" class="admin-input">
 
-      <form id="skillsForm">
-        <div id="skillsList" class="admin-skill-list">
-          <!-- Filled by admin.js -->
-        </div>
+    <label>Intro Text</label><br>
+    <textarea id="introTextInput" class="admin-input" rows="5"></textarea>
 
-        <button type="submit" class="btn admin-btn">Save Skills</button>
-        <p id="skillsStatus" class="admin-status"></p>
-      </form>
-    </section>
+    <button class="btn" type="submit">Save Intro</button>
+    <p id="introStatus"></p>
+  </form>
 
-    <!-- Contacts Section -->
-    <section class="admin-section">
-      <h2>Contacts</h2>
-      <form id="contactsForm">
-        <div class="admin-field">
-          <label for="emailInput">Email</label>
-          <input type="email" id="emailInput" placeholder="susonjamesrazel@gmail.com">
-        </div>
+  <br><br>
 
-        <div class="admin-field">
-          <label for="phoneInput">Phone</label>
-          <input type="text" id="phoneInput" placeholder="+63 976 210 5211">
-        </div>
+  <!-- SKILLS -->
+  <form id="skillsForm">
+    <h3>Skills</h3>
 
-        <div class="admin-field">
-          <label for="facebookLabelInput">Facebook Name</label>
-          <input type="text" id="facebookLabelInput" placeholder="JRazel Suson">
-        </div>
+    <div id="skillsList"></div>
 
-        <div class="admin-field">
-          <label for="facebookUrlInput">Facebook URL</label>
-          <input type="text" id="facebookUrlInput" placeholder="https://www.facebook.com/...">
-        </div>
+    <button class="btn" type="submit">Save Skills</button>
+    <p id="skillsStatus"></p>
+  </form>
 
-        <div class="admin-field">
-          <label for="instagramLabelInput">Instagram Handle</label>
-          <input type="text" id="instagramLabelInput" placeholder="@m0ku_sei">
-        </div>
+  <br><br>
 
-        <div class="admin-field">
-          <label for="instagramUrlInput">Instagram URL</label>
-          <input type="text" id="instagramUrlInput" placeholder="https://www.instagram.com/...">
-        </div>
+  <!-- CONTACTS -->
+  <form id="contactsForm">
+    <h3>Contacts</h3>
 
-        <div class="admin-field">
-          <label for="linkedinLabelInput">LinkedIn Name</label>
-          <input type="text" id="linkedinLabelInput" placeholder="James Razel Suson">
-        </div>
+    <label>Email</label><br>
+    <input id="emailInput" class="admin-input">
 
-        <div class="admin-field">
-          <label for="linkedinUrlInput">LinkedIn URL</label>
-          <input type="text" id="linkedinUrlInput" placeholder="https://www.linkedin.com/in/...">
-        </div>
+    <label>Phone</label><br>
+    <input id="phoneInput" class="admin-input">
 
-        <div class="admin-field">
-          <label for="githubLabelInput">GitHub Username</label>
-          <input type="text" id="githubLabelInput" placeholder="jrazelsuson">
-        </div>
+    <label>Facebook Name</label><br>
+    <input id="facebookLabelInput" class="admin-input">
 
-        <div class="admin-field">
-          <label for="githubUrlInput">GitHub URL</label>
-          <input type="text" id="githubUrlInput" placeholder="https://github.com/...">
-        </div>
+    <label>Facebook URL</label><br>
+    <input id="facebookUrlInput" class="admin-input">
 
-        <button type="submit" class="btn admin-btn">Save Contacts</button>
-        <p id="contactsStatus" class="admin-status"></p>
-      </form>
-    </section>
-  </main>
+    <label>Instagram Handle</label><br>
+    <input id="instagramLabelInput" class="admin-input">
 
-  <script src="admin.js"></script>
-  <script src="galaxy.js"></script>
+    <label>Instagram URL</label><br>
+    <input id="instagramUrlInput" class="admin-input">
+
+    <label>LinkedIn Name</label><br>
+    <input id="linkedinLabelInput" class="admin-input">
+
+    <label>LinkedIn URL</label><br>
+    <input id="linkedinUrlInput" class="admin-input">
+
+    <label>GitHub Username</label><br>
+    <input id="githubLabelInput" class="admin-input">
+
+    <label>GitHub URL</label><br>
+    <input id="githubUrlInput" class="admin-input">
+
+    <button class="btn" type="submit">Save Contacts</button>
+    <p id="contactsStatus"></p>
+  </form>
+
+</section>
+
+<script src="admin.js"></script>
+<script src="galaxy.js"></script>
+
 </body>
 </html>

@@ -1,180 +1,112 @@
-// admin.js
-// Admin panel logic to save data into localStorage
+document.addEventListener("DOMContentLoaded", () => {
 
-document.addEventListener('DOMContentLoaded', () => {
-  // ===== Defaults (match your current portfolio) =====
-  const DEFAULT_INTRO = {
-    name: 'James Razel',
-    degree: 'BS in Information Technology',
-    text: `Hi there! I’m passionate about web design and technology whether it’s coding simple websites, building PCs, 
-or experimenting with new tools. Outside of tech, I enjoy photography, music, gaming, and keeping active at the gym. 
-All of these inspire my creativity in different ways.`
-  };
+  // INTRO -------------------------------
+  const introForm = document.getElementById("introForm");
+  const introStatus = document.getElementById("introStatus");
 
-  const DEFAULT_SKILL_TITLES = [
-    'Computer Hardware Assembly',
-    'Web Design',
-    'Presentation',
-    'CSS',
-    'HTML',
-    'JAVASCRIPT',
-    'Figma',
-    'Visual Studio Code',
-    'Github',
-    'Video Editing',
-    'Android Studio',
-    'Blender'
+  document.getElementById("introNameInput").value =
+    localStorage.getItem("portfolio_intro_name") || "";
+
+  document.getElementById("introDegreeInput").value =
+    localStorage.getItem("portfolio_intro_degree") || "";
+
+  document.getElementById("introTextInput").value =
+    localStorage.getItem("portfolio_intro_text") || "";
+
+  introForm.addEventListener("submit", e => {
+    e.preventDefault();
+
+    localStorage.setItem("portfolio_intro_name",
+      document.getElementById("introNameInput").value);
+
+    localStorage.setItem("portfolio_intro_degree",
+      document.getElementById("introDegreeInput").value);
+
+    localStorage.setItem("portfolio_intro_text",
+      document.getElementById("introTextInput").value);
+
+    introStatus.textContent = "Intro saved!";
+    setTimeout(() => introStatus.textContent = "", 2000);
+  });
+
+  // SKILLS ------------------------------
+  const DEFAULT_SKILLS = [
+    "Computer Hardware Assembly","Web Design","Presentation","CSS","HTML",
+    "JAVASCRIPT","Figma","Visual Studio Code","Github","Video Editing",
+    "Android Studio","Blender"
   ];
 
-  const DEFAULT_CONTACTS = {
-    email: 'susonjamesrazel@gmail.com',
-    phone: '+63 976 210 5211',
-    facebookLabel: 'JRazel Suson',
-    facebookUrl: 'https://www.facebook.com/M0kusei',
-    instagramLabel: '@m0ku_sei',
-    instagramUrl: 'https://www.instagram.com/m0ku_sei/',
-    linkedinLabel: 'James Razel Suson',
-    linkedinUrl: 'https://www.linkedin.com/in/james-razel-suson-935606335/',
-    githubLabel: 'jrazelsuson',
-    githubUrl: 'https://github.com/JRazelSuson'
-  };
+  const skillsForm = document.getElementById("skillsForm");
+  const skillsList = document.getElementById("skillsList");
+  const skillsStatus = document.getElementById("skillsStatus");
 
-  // ===== Intro form =====
-  const introForm = document.getElementById('introForm');
-  const introNameInput = document.getElementById('introNameInput');
-  const introDegreeInput = document.getElementById('introDegreeInput');
-  const introTextInput = document.getElementById('introTextInput');
-  const introStatus = document.getElementById('introStatus');
+  let savedSkillTitles =
+    JSON.parse(localStorage.getItem("portfolio_skill_titles") || "null")
+    || DEFAULT_SKILLS;
 
-  // Prefill intro fields
-  introNameInput.value = localStorage.getItem('portfolio_intro_name') || DEFAULT_INTRO.name;
-  introDegreeInput.value = localStorage.getItem('portfolio_intro_degree') || DEFAULT_INTRO.degree;
-  introTextInput.value = localStorage.getItem('portfolio_intro_text') || DEFAULT_INTRO.text;
-
-  introForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const name = introNameInput.value.trim() || DEFAULT_INTRO.name;
-    const degree = introDegreeInput.value.trim() || DEFAULT_INTRO.degree;
-    const text = introTextInput.value.trim() || DEFAULT_INTRO.text;
-
-    localStorage.setItem('portfolio_intro_name', name);
-    localStorage.setItem('portfolio_intro_degree', degree);
-    localStorage.setItem('portfolio_intro_text', text);
-
-    introStatus.textContent = '✅ Intro saved! Refresh your portfolio page to see changes.';
-    setTimeout(() => introStatus.textContent = '', 4000);
+  skillsList.innerHTML = "";
+  savedSkillTitles.forEach((title, i) => {
+    skillsList.innerHTML += `
+      <label>Skill #${i+1}</label>
+      <input id="skillInput${i}" value="${title}">
+    `;
   });
 
-  // ===== Skills form =====
-  const skillsForm = document.getElementById('skillsForm');
-  const skillsStatus = document.getElementById('skillsStatus');
-  const skillsListEl = document.getElementById('skillsList');
-
-  let savedSkillTitles = DEFAULT_SKILL_TITLES;
-  const storedSkillsRaw = localStorage.getItem('portfolio_skill_titles');
-  if (storedSkillsRaw) {
-    try {
-      const parsed = JSON.parse(storedSkillsRaw);
-      if (Array.isArray(parsed) && parsed.length === DEFAULT_SKILL_TITLES.length) {
-        savedSkillTitles = parsed;
-      }
-    } catch (e) {
-      console.warn('Could not parse saved skill titles, using defaults');
-    }
-  }
-
-  // Build inputs dynamically
-  skillsListEl.innerHTML = '';
-  savedSkillTitles.forEach((title, index) => {
-    const wrapper = document.createElement('div');
-    wrapper.className = 'admin-field';
-
-    const label = document.createElement('label');
-    label.textContent = `Skill #${index + 1}`;
-    label.setAttribute('for', `skillInput${index}`);
-
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.id = `skillInput${index}`;
-    input.value = title;
-
-    wrapper.appendChild(label);
-    wrapper.appendChild(input);
-    skillsListEl.appendChild(wrapper);
-  });
-
-  skillsForm.addEventListener('submit', (e) => {
+  skillsForm.addEventListener("submit", e => {
     e.preventDefault();
+
     const newTitles = [];
-
-    savedSkillTitles.forEach((_, index) => {
-      const input = document.getElementById(`skillInput${index}`);
-      newTitles.push(input.value.trim() || DEFAULT_SKILL_TITLES[index]);
+    savedSkillTitles.forEach((_, i) => {
+      newTitles.push(document.getElementById(`skillInput${i}`).value);
     });
 
-    localStorage.setItem('portfolio_skill_titles', JSON.stringify(newTitles));
-    skillsStatus.textContent = '✅ Skills saved! Refresh your portfolio page to see changes.';
-    setTimeout(() => skillsStatus.textContent = '', 4000);
+    localStorage.setItem("portfolio_skill_titles", JSON.stringify(newTitles));
+
+    skillsStatus.textContent = "Skills saved!";
+    setTimeout(() => skillsStatus.textContent = "", 2000);
   });
 
-  // ===== Contacts form =====
-  const contactsForm = document.getElementById('contactsForm');
-  const contactsStatus = document.getElementById('contactsStatus');
+  // CONTACTS ----------------------------
+  const contactsForm = document.getElementById("contactsForm");
+  const contactsStatus = document.getElementById("contactsStatus");
 
-  const emailInput = document.getElementById('emailInput');
-  const phoneInput = document.getElementById('phoneInput');
-  const facebookLabelInput = document.getElementById('facebookLabelInput');
-  const facebookUrlInput = document.getElementById('facebookUrlInput');
-  const instagramLabelInput = document.getElementById('instagramLabelInput');
-  const instagramUrlInput = document.getElementById('instagramUrlInput');
-  const linkedinLabelInput = document.getElementById('linkedinLabelInput');
-  const linkedinUrlInput = document.getElementById('linkedinUrlInput');
-  const githubLabelInput = document.getElementById('githubLabelInput');
-  const githubUrlInput = document.getElementById('githubUrlInput');
+  let contacts = JSON.parse(localStorage.getItem("portfolio_contacts") || "{}");
 
-  // Prefill contacts
-  let contactsData = DEFAULT_CONTACTS;
-  const storedContactsRaw = localStorage.getItem('portfolio_contacts');
-  if (storedContactsRaw) {
-    try {
-      const parsed = JSON.parse(storedContactsRaw);
-      contactsData = { ...DEFAULT_CONTACTS, ...parsed };
-    } catch (e) {
-      console.warn('Could not parse saved contacts, using defaults');
-    }
+  function loadContact(id, key) {
+    document.getElementById(id).value = contacts[key] || "";
   }
 
-  emailInput.value = contactsData.email;
-  phoneInput.value = contactsData.phone;
-  facebookLabelInput.value = contactsData.facebookLabel;
-  facebookUrlInput.value = contactsData.facebookUrl;
-  instagramLabelInput.value = contactsData.instagramLabel;
-  instagramUrlInput.value = contactsData.instagramUrl;
-  linkedinLabelInput.value = contactsData.linkedinLabel;
-  linkedinUrlInput.value = contactsData.linkedinUrl;
-  githubLabelInput.value = contactsData.githubLabel;
-  githubUrlInput.value = contactsData.githubUrl;
+  loadContact("emailInput", "email");
+  loadContact("phoneInput", "phone");
+  loadContact("facebookLabelInput", "facebookLabel");
+  loadContact("facebookUrlInput", "facebookUrl");
+  loadContact("instagramLabelInput", "instagramLabel");
+  loadContact("instagramUrlInput", "instagramUrl");
+  loadContact("linkedinLabelInput", "linkedinLabel");
+  loadContact("linkedinUrlInput", "linkedinUrl");
+  loadContact("githubLabelInput", "githubLabel");
+  loadContact("githubUrlInput", "githubUrl");
 
-  contactsForm.addEventListener('submit', (e) => {
+  contactsForm.addEventListener("submit", e => {
     e.preventDefault();
 
-    const newContacts = {
-      email: emailInput.value.trim() || DEFAULT_CONTACTS.email,
-      phone: phoneInput.value.trim() || DEFAULT_CONTACTS.phone,
-      facebookLabel: facebookLabelInput.value.trim() || DEFAULT_CONTACTS.facebookLabel,
-      facebookUrl: facebookUrlInput.value.trim() || DEFAULT_CONTACTS.facebookUrl,
-      instagramLabel: instagramLabelInput.value.trim() || DEFAULT_CONTACTS.instagramLabel,
-      instagramUrl: instagramUrlInput.value.trim() || DEFAULT_CONTACTS.instagramUrl,
-      linkedinLabel: linkedinLabelInput.value.trim() || DEFAULT_CONTACTS.linkedinLabel,
-      linkedinUrl: linkedinUrlInput.value.trim() || DEFAULT_CONTACTS.linkedinUrl,
-      githubLabel: githubLabelInput.value.trim() || DEFAULT_CONTACTS.githubLabel,
-      githubUrl: githubUrlInput.value.trim() || DEFAULT_CONTACTS.githubUrl
+    contacts = {
+      email: document.getElementById("emailInput").value,
+      phone: document.getElementById("phoneInput").value,
+      facebookLabel: document.getElementById("facebookLabelInput").value,
+      facebookUrl: document.getElementById("facebookUrlInput").value,
+      instagramLabel: document.getElementById("instagramLabelInput").value,
+      instagramUrl: document.getElementById("instagramUrlInput").value,
+      linkedinLabel: document.getElementById("linkedinLabelInput").value,
+      linkedinUrl: document.getElementById("linkedinUrlInput").value,
+      githubLabel: document.getElementById("githubLabelInput").value,
+      githubUrl: document.getElementById("githubUrlInput").value,
     };
 
-    localStorage.setItem('portfolio_contacts', JSON.stringify(newContacts));
+    localStorage.setItem("portfolio_contacts", JSON.stringify(contacts));
 
-    contactsStatus.textContent = '✅ Contacts saved! Refresh your portfolio page to see changes.';
-    setTimeout(() => contactsStatus.textContent = '', 4000);
+    contactsStatus.textContent = "Contacts saved!";
+    setTimeout(() => contactsStatus.textContent = "", 2000);
   });
+
 });
