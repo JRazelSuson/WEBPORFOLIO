@@ -1,98 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Admin Panel</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="./style.css" />
+  <style>
+    .admin-page { padding-top: 120px; }
+    @media (max-width: 995px) {
+      .admin-page { padding-top: 110px; }
+    }
+    .admin-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin: 12px 0 24px;
+    }
+    .admin-actions .btn {
+      display: inline-block;
+      margin: 0;
+      width: auto;
+    }
+  </style>
 </head>
 
 <body>
+  <canvas id="galaxy"></canvas>
+
+  <header>
+    <span class="logo">Admin Panel</span>
+  </header>
+
+  <main class="admin-page">
+    <h1>Admin Panel</h1>
+    <p class="admin-note">
+      Manage and update your portfolio content stored in Firebase Firestore.
+    </p>
+
+    <div class="admin-actions">
+      <a class="btn" href="./index.html">← Back to Portfolio</a>
+    </div>
+
+    <section class="admin-section">
+      <h2>Intro Section</h2>
+      <p class="admin-subnote">Edit the main introduction displayed on the homepage.</p>
+
+      <form id="introForm">
+        <div class="admin-field">
+          <label for="introNameInput">Name</label>
+          <input id="introNameInput" type="text" />
+        </div>
+
+        <div class="admin-field">
+          <label for="introDegreeInput">Degree / Role</label>
+          <input id="introDegreeInput" type="text" />
+        </div>
+
+        <div class="admin-field">
+          <label for="introTextInput">Intro Text</label>
+          <textarea id="introTextInput"></textarea>
+        </div>
+
+        <button type="submit" class="btn admin-btn">Save Intro</button>
+        <div class="admin-status" id="introStatus"></div>
+      </form>
+    </section>
+
+    <section class="admin-section">
+      <h2>Skills Section</h2>
+      <p class="admin-subnote">Update the skill titles shown on your portfolio.</p>
+
+      <form id="skillsForm">
+        <div id="skillsList" class="admin-skill-list"></div>
+        <button type="submit" class="btn admin-btn">Save Skills</button>
+        <div class="admin-status" id="skillsStatus"></div>
+      </form>
+    </section>
+
+    <section class="admin-section">
+      <h2>Contacts Section</h2>
+      <p class="admin-subnote">Update your contact details and social links.</p>
+
+      <form id="contactsForm">
+        <div class="admin-field">
+          <label for="emailInput">Email</label>
+          <input id="emailInput" type="email" />
+        </div>
+
+        <div class="admin-field">
+          <label for="phoneInput">Phone</label>
+          <input id="phoneInput" type="text" />
+        </div>
+
+        <div class="admin-field">
+          <label for="facebookLabelInput">Facebook Name</label>
+          <input id="facebookLabelInput" type="text" />
+        </div>
+
+        <div class="admin-field">
+          <label for="facebookUrlInput">Facebook URL</label>
+          <input id="facebookUrlInput" type="url" />
+        </div>
+
+        <div class="admin-field">
+          <label for="instagramLabelInput">Instagram Handle</label>
+          <input id="instagramLabelInput" type="text" />
+        </div>
+
+        <div class="admin-field">
+          <label for="instagramUrlInput">Instagram URL</label>
+          <input id="instagramUrlInput" type="url" />
+        </div>
+
+        <div class="admin-field">
+          <label for="linkedinLabelInput">LinkedIn Name</label>
+          <input id="linkedinLabelInput" type="text" />
+        </div>
+
+        <div class="admin-field">
+          <label for="linkedinUrlInput">LinkedIn URL</label>
+          <input id="linkedinUrlInput" type="url" />
+        </div>
+
+        <div class="admin-field">
+          <label for="githubLabelInput">GitHub Username</label>
+          <input id="githubLabelInput" type="text" />
+        </div>
+
+        <div class="admin-field">
+          <label for="githubUrlInput">GitHub URL</label>
+          <input id="githubUrlInput" type="url" />
+        </div>
+
+        <button type="submit" class="btn admin-btn">Save Contacts</button>
+        <div class="admin-status" id="contactsStatus"></div>
+      </form>
+    </section>
+  </main>
 
 <canvas id="galaxy"></canvas>
 
-<header>
-  <a href="index.html#home" class="logo">← Back to Portfolio</a>
-  <nav></nav>
-</header>
-
-<section style="padding: 120px 6%;">
-
-  <h2 class="section-title">Admin Panel</h2>
-
-  <!-- INTRO -->
-  <form id="introForm">
-    <h3>Intro</h3>
-
-    <label>Name</label><br>
-    <input id="introNameInput" class="admin-input">
-
-    <label>Degree / Role</label><br>
-    <input id="introDegreeInput" class="admin-input">
-
-    <label>Intro Text</label><br>
-    <textarea id="introTextInput" class="admin-input" rows="5"></textarea>
-
-    <button class="btn" type="submit">Save Intro</button>
-    <p id="introStatus"></p>
-  </form>
-
-  <br><br>
-
-  <!-- SKILLS -->
-  <form id="skillsForm">
-    <h3>Skills</h3>
-
-    <div id="skillsList"></div>
-
-    <button class="btn" type="submit">Save Skills</button>
-    <p id="skillsStatus"></p>
-  </form>
-
-  <br><br>
-
-  <!-- CONTACTS -->
-  <form id="contactsForm">
-    <h3>Contacts</h3>
-
-    <label>Email</label><br>
-    <input id="emailInput" class="admin-input">
-
-    <label>Phone</label><br>
-    <input id="phoneInput" class="admin-input">
-
-    <label>Facebook Name</label><br>
-    <input id="facebookLabelInput" class="admin-input">
-
-    <label>Facebook URL</label><br>
-    <input id="facebookUrlInput" class="admin-input">
-
-    <label>Instagram Handle</label><br>
-    <input id="instagramLabelInput" class="admin-input">
-
-    <label>Instagram URL</label><br>
-    <input id="instagramUrlInput" class="admin-input">
-
-    <label>LinkedIn Name</label><br>
-    <input id="linkedinLabelInput" class="admin-input">
-
-    <label>LinkedIn URL</label><br>
-    <input id="linkedinUrlInput" class="admin-input">
-
-    <label>GitHub Username</label><br>
-    <input id="githubLabelInput" class="admin-input">
-
-    <label>GitHub URL</label><br>
-    <input id="githubUrlInput" class="admin-input">
-
-    <button class="btn" type="submit">Save Contacts</button>
-    <p id="contactsStatus"></p>
-  </form>
-
-</section>
-
-<script src="admin.js"></script>
-<script src="galaxy.js"></script>
+<script src="./script.js"></script>
+  <script type="module" src="./admin.js"></script>
+  <script src="./galaxy.js"></script>
 
 </body>
 </html>

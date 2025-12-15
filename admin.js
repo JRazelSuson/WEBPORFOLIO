@@ -1,112 +1,171 @@
-document.addEventListener("DOMContentLoaded", () => {
+// admin.js (type=module) - Firestore version (replaces localStorage)
+import { db } from "./firebase-config.js";
+import {
+  doc,
+  getDoc,
+  setDoc,
+  serverTimestamp,
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-  // INTRO -------------------------------
-  const introForm = document.getElementById("introForm");
-  const introStatus = document.getElementById("introStatus");
+document.addEventListener("DOMContentLoaded", async () => {
+  const portfolioRef = doc(db, "portfolio", "main");
 
-  document.getElementById("introNameInput").value =
-    localStorage.getItem("portfolio_intro_name") || "";
-
-  document.getElementById("introDegreeInput").value =
-    localStorage.getItem("portfolio_intro_degree") || "";
-
-  document.getElementById("introTextInput").value =
-    localStorage.getItem("portfolio_intro_text") || "";
-
-  introForm.addEventListener("submit", e => {
-    e.preventDefault();
-
-    localStorage.setItem("portfolio_intro_name",
-      document.getElementById("introNameInput").value);
-
-    localStorage.setItem("portfolio_intro_degree",
-      document.getElementById("introDegreeInput").value);
-
-    localStorage.setItem("portfolio_intro_text",
-      document.getElementById("introTextInput").value);
-
-    introStatus.textContent = "Intro saved!";
-    setTimeout(() => introStatus.textContent = "", 2000);
-  });
-
-  // SKILLS ------------------------------
+  // ---------- DEFAULTS ----------
   const DEFAULT_SKILLS = [
-    "Computer Hardware Assembly","Web Design","Presentation","CSS","HTML",
-    "JAVASCRIPT","Figma","Visual Studio Code","Github","Video Editing",
-    "Android Studio","Blender"
+    "Computer Hardware Assembly",
+    "Web Design",
+    "Presentation",
+    "CSS",
+    "HTML",
+    "JAVASCRIPT",
+    "Figma",
+    "Visual Studio Code",
+    "Github",
+    "Video Editing",
+    "Android Studio",
+    "Blender",
   ];
 
-  const skillsForm = document.getElementById("skillsForm");
-  const skillsList = document.getElementById("skillsList");
-  const skillsStatus = document.getElementById("skillsStatus");
+  // ---------- HELPERS ----------
+  const $ = (id) => document.getElementById(id);
 
-  let savedSkillTitles =
-    JSON.parse(localStorage.getItem("portfolio_skill_titles") || "null")
-    || DEFAULT_SKILLS;
-
-  skillsList.innerHTML = "";
-  savedSkillTitles.forEach((title, i) => {
-    skillsList.innerHTML += `
-      <label>Skill #${i+1}</label>
-      <input id="skillInput${i}" value="${title}">
-    `;
-  });
-
-  skillsForm.addEventListener("submit", e => {
-    e.preventDefault();
-
-    const newTitles = [];
-    savedSkillTitles.forEach((_, i) => {
-      newTitles.push(document.getElementById(`skillInput${i}`).value);
-    });
-
-    localStorage.setItem("portfolio_skill_titles", JSON.stringify(newTitles));
-
-    skillsStatus.textContent = "Skills saved!";
-    setTimeout(() => skillsStatus.textContent = "", 2000);
-  });
-
-  // CONTACTS ----------------------------
-  const contactsForm = document.getElementById("contactsForm");
-  const contactsStatus = document.getElementById("contactsStatus");
-
-  let contacts = JSON.parse(localStorage.getItem("portfolio_contacts") || "{}");
-
-  function loadContact(id, key) {
-    document.getElementById(id).value = contacts[key] || "";
+  function escapeHtml(str) {
+    return String(str ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#039;");
   }
 
-  loadContact("emailInput", "email");
-  loadContact("phoneInput", "phone");
-  loadContact("facebookLabelInput", "facebookLabel");
-  loadContact("facebookUrlInput", "facebookUrl");
-  loadContact("instagramLabelInput", "instagramLabel");
-  loadContact("instagramUrlInput", "instagramUrl");
-  loadContact("linkedinLabelInput", "linkedinLabel");
-  loadContact("linkedinUrlInput", "linkedinUrl");
-  loadContact("githubLabelInput", "githubLabel");
-  loadContact("githubUrlInput", "githubUrl");
+  function setStatus(el, msg) {
+    if (!el) return;
+    el.textContent = msg;
+    setTimeout(() => (el.textContent = ""), 2000);
+  }
 
-  contactsForm.addEventListener("submit", e => {
-    e.preventDefault();
+  // ---------- LOAD FROM FIRESTORE ----------
+  async function loadAll() {
+    const snap = await getDoc(portfolioRef);
+    const data = snap.exists() ? snap.data() : {};
 
-    contacts = {
-      email: document.getElementById("emailInput").value,
-      phone: document.getElementById("phoneInput").value,
-      facebookLabel: document.getElementById("facebookLabelInput").value,
-      facebookUrl: document.getElementById("facebookUrlInput").value,
-      instagramLabel: document.getElementById("instagramLabelInput").value,
-      instagramUrl: document.getElementById("instagramUrlInput").value,
-      linkedinLabel: document.getElementById("linkedinLabelInput").value,
-      linkedinUrl: document.getElementById("linkedinUrlInput").value,
-      githubLabel: document.getElementById("githubLabelInput").value,
-      githubUrl: document.getElementById("githubUrlInput").value,
-    };
+    // INTRO
+    if ($("introNameInput")) $("introNameInput").value = data?.intro?.name ?? "";
+    if ($("introDegreeInput")) $("introDegreeInput").value = data?.intro?.degree ?? "";
+    if ($("introTextInput")) $("introTextInput").value = data?.intro?.text ?? "";
 
-    localStorage.setItem("portfolio_contacts", JSON.stringify(contacts));
+    // SKILLS
+    const savedSkillTitles =
+      Array.isArray(data?.skills) && data.skills.length ? data.skills : DEFAULT_SKILLS;
 
-    contactsStatus.textContent = "Contacts saved!";
-    setTimeout(() => contactsStatus.textContent = "", 2000);
-  });
+    const skillsList = $("skillsList");
+    if (skillsList) {
+      skillsList.innerHTML = "";
+      savedSkillTitles.forEach((title, i) => {
+        skillsList.innerHTML += `
+          <label>Skill #${i + 1}</label>
+          <input id="skillInput${i}" type="text" value="${escapeHtml(title)}" />
+        `;
+      });
+    }
 
+    // CONTACTS
+    const c = data?.contacts ?? {};
+    if ($("emailInput")) $("emailInput").value = c.email ?? "";
+    if ($("phoneInput")) $("phoneInput").value = c.phone ?? "";
+
+    if ($("facebookLabelInput")) $("facebookLabelInput").value = c.facebookLabel ?? "";
+    if ($("facebookUrlInput")) $("facebookUrlInput").value = c.facebookUrl ?? "";
+
+    if ($("instagramLabelInput")) $("instagramLabelInput").value = c.instagramLabel ?? "";
+    if ($("instagramUrlInput")) $("instagramUrlInput").value = c.instagramUrl ?? "";
+
+    if ($("linkedinLabelInput")) $("linkedinLabelInput").value = c.linkedinLabel ?? "";
+    if ($("linkedinUrlInput")) $("linkedinUrlInput").value = c.linkedinUrl ?? "";
+
+    if ($("githubLabelInput")) $("githubLabelInput").value = c.githubLabel ?? "";
+    if ($("githubUrlInput")) $("githubUrlInput").value = c.githubUrl ?? "";
+  }
+
+  await loadAll();
+
+  // ---------- SAVE INTRO ----------
+  const introForm = $("introForm");
+  const introStatus = $("introStatus");
+
+  if (introForm) {
+    introForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const payload = {
+        intro: {
+          name: $("introNameInput")?.value ?? "",
+          degree: $("introDegreeInput")?.value ?? "",
+          text: $("introTextInput")?.value ?? "",
+        },
+        updatedAt: serverTimestamp(),
+      };
+
+      await setDoc(portfolioRef, payload, { merge: true });
+      setStatus(introStatus, "Intro saved!");
+    });
+  }
+
+  // ---------- SAVE SKILLS ----------
+  const skillsForm = $("skillsForm");
+  const skillsStatus = $("skillsStatus");
+
+  if (skillsForm) {
+    skillsForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const newTitles = [];
+      let i = 0;
+      while (true) {
+        const input = $(`skillInput${i}`);
+        if (!input) break;
+        newTitles.push(input.value ?? "");
+        i++;
+      }
+
+      await setDoc(
+        portfolioRef,
+        { skills: newTitles, updatedAt: serverTimestamp() },
+        { merge: true }
+      );
+
+      setStatus(skillsStatus, "Skills saved!");
+    });
+  }
+
+  // ---------- SAVE CONTACTS ----------
+  const contactsForm = $("contactsForm");
+  const contactsStatus = $("contactsStatus");
+
+  if (contactsForm) {
+    contactsForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const contacts = {
+        email: $("emailInput")?.value ?? "",
+        phone: $("phoneInput")?.value ?? "",
+        facebookLabel: $("facebookLabelInput")?.value ?? "",
+        facebookUrl: $("facebookUrlInput")?.value ?? "",
+        instagramLabel: $("instagramLabelInput")?.value ?? "",
+        instagramUrl: $("instagramUrlInput")?.value ?? "",
+        linkedinLabel: $("linkedinLabelInput")?.value ?? "",
+        linkedinUrl: $("linkedinUrlInput")?.value ?? "",
+        githubLabel: $("githubLabelInput")?.value ?? "",
+        githubUrl: $("githubUrlInput")?.value ?? "",
+      };
+
+      await setDoc(
+        portfolioRef,
+        { contacts, updatedAt: serverTimestamp() },
+        { merge: true }
+      );
+
+      setStatus(contactsStatus, "Contacts saved!");
+    });
+  }
 });

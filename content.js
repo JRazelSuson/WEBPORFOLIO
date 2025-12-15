@@ -1,60 +1,56 @@
-document.addEventListener("DOMContentLoaded", () => {
+// content.js (type=module) - Firestore version (replaces localStorage)
+import { db } from "./firebase-config.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-  // INTRO
-  const nameEl = document.getElementById("introName");
-  const degreeEl = document.getElementById("introDegree");
-  const introEl = document.getElementById("introText");
+document.addEventListener("DOMContentLoaded", async () => {
+  const portfolioRef = doc(db, "portfolio", "main");
 
-  const savedName = localStorage.getItem("portfolio_intro_name");
-  const savedDegree = localStorage.getItem("portfolio_intro_degree");
-  const savedIntro = localStorage.getItem("portfolio_intro_text");
+  try {
+    const snap = await getDoc(portfolioRef);
+    const data = snap.exists() ? snap.data() : {};
 
-  if (savedName) nameEl.textContent = savedName;
-  if (savedDegree) degreeEl.textContent = savedDegree;
-  if (savedIntro) introEl.textContent = savedIntro;
+    // INTRO
+    setText("introName", data?.intro?.name);
+    setText("introDegree", data?.intro?.degree);
+    setText("introText", data?.intro?.text);
 
-  // SKILLS
-  const savedSkills = JSON.parse(localStorage.getItem("portfolio_skill_titles") || "[]");
-  const skillItems = document.querySelectorAll(".skill-item h3");
+    // SKILLS (keeps your layout; only replaces the <h3> text)
+    const savedSkills = Array.isArray(data?.skills) ? data.skills : [];
+    const skillItems = document.querySelectorAll(".skill-item h3");
+    savedSkills.forEach((title, i) => {
+      if (skillItems[i]) skillItems[i].textContent = title;
+    });
 
-  savedSkills.forEach((title, i) => {
-    if (skillItems[i]) skillItems[i].textContent = title;
-  });
+    // CONTACTS
+    const c = data?.contacts ?? {};
 
-  // CONTACTS
-  const savedContacts = JSON.parse(localStorage.getItem("portfolio_contacts") || "{}");
+    if (c.email) {
+      const el = document.getElementById("contactEmail");
+      if (el) {
+        el.textContent = c.email;
+        el.href = "mailto:" + c.email;
+      }
+    }
 
-  if (savedContacts.email) {
-    const el = document.getElementById("contactEmail");
-    el.textContent = savedContacts.email;
-    el.href = "mailto:" + savedContacts.email;
+    if (c.phone) setText("contactPhone", c.phone);
+
+    setLink("contactFacebook", c.facebookLabel, c.facebookUrl);
+    setLink("contactInstagram", c.instagramLabel, c.instagramUrl);
+    setLink("contactLinkedIn", c.linkedinLabel, c.linkedinUrl);
+    setLink("contactGithub", c.githubLabel, c.githubUrl);
+  } catch (err) {
+    console.error("Firestore load failed:", err);
   }
 
-  if (savedContacts.phone) {
-    document.getElementById("contactPhone").textContent = savedContacts.phone;
+  function setText(id, value) {
+    const el = document.getElementById(id);
+    if (el && value) el.textContent = value;
   }
 
-  if (savedContacts.facebookLabel) {
-    const fb = document.getElementById("contactFacebook");
-    fb.textContent = savedContacts.facebookLabel;
-    fb.href = savedContacts.facebookUrl;
-  }
-
-  if (savedContacts.instagramLabel) {
-    const ig = document.getElementById("contactInstagram");
-    ig.textContent = savedContacts.instagramLabel;
-    ig.href = savedContacts.instagramUrl;
-  }
-
-  if (savedContacts.linkedinLabel) {
-    const li = document.getElementById("contactLinkedIn");
-    li.textContent = savedContacts.linkedinLabel;
-    li.href = savedContacts.linkedinUrl;
-  }
-
-  if (savedContacts.githubLabel) {
-    const gh = document.getElementById("contactGithub");
-    gh.textContent = savedContacts.githubLabel;
-    gh.href = savedContacts.githubUrl;
+  function setLink(id, label, url) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (label) el.textContent = label;
+    if (url) el.href = url;
   }
 });
